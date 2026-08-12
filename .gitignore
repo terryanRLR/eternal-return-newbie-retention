@@ -1,0 +1,28 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python / notebooks
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Data (raw CSVs are large and not tracked — see data/README.md)
+data/*.csv
+data/*.parquet
+
+# Outputs generated when re-running notebooks
+*.png
+!docs/**/*.png
+
+# ── 원본 작업 아카이브 (로컬 보관) ────────────────────────
+#   EternalReturn_kakaogames_2024.csv 가 437MB 라 GitHub 단일 파일 한도(100MB)를
+#   초과합니다. 이 폴더를 제외하지 않으면 push 자체가 실패합니다.
+#   내용은 이미 재배치됨: 노트북 → notebooks/individual/ · 발표자료 → slides/
+원본/
+
+# 대용량 원본 (경로 무관)
+EternalReturn_kakaogames_2024*.csv
+*.twb
