@@ -13,8 +13,9 @@
 | 차트 엔진 | **Chart.js 4.4.1** (CDN) | **직접 구현한 Canvas 2D 차트** (외부 차트 라이브러리 없음) |
 | 폰트 | Pretendard (CDN) | GmarketSans + Noto Sans KR (CDN) |
 | 데이터 로딩 | `fetch()` 없음. 모든 데이터가 `<script>` 내 JS 상수로 하드코딩 (`const D`, 259행 한 줄) | 동일하게 하드코딩 (`RAW_DATA`/`PATCH_DATA`/`EXTRA_DATA`/`PATCH_AVG_RADAR`, 2361~2364행) |
+| 접근성 | `role="tablist"`/`tab`/`tabpanel` · 방향키·Home/End 로 탭 이동 · 로빙 tabindex | `aria-*` 92 · `role` 34 · 시맨틱 버튼 39 |
 | 특수 기능 | 없음(정적 리포트형) | Web Speech API 기반 TTS 내레이션, 다국어(KOR/ENG/JPN), 다크모드 |
-| 파일 크기 | 약 388KB (대부분 데이터) | 약 409KB (대부분 데이터) |
+| 파일 크기 | **약 158KB** (원래 388KB — SHAP 이미지 3장이 81.8%를 차지해 64색 양자화로 −59%) | 약 409KB (대부분 데이터) |
 
 두 파일 모두 **빌드 도구 없이 단일 HTML 파일로 완결**되어 있습니다(번들러/프레임워크 없음, 순수 vanilla JS). 데이터 소스인 CSV → 이 JS 상수로 어떻게 변환됐는지의 스크립트는 레포에 남아있지 않습니다 (`02_analysis_pipeline.md` [4]절, `03_issues_and_troubleshooting.md` 참고).
 
@@ -30,7 +31,8 @@
 <div id="bal"  class="page">  <!-- PART 3. 밸런스팀 -->
 <footer id="ftteam">
 ```
-탭 전환은 `document.querySelectorAll('.tab')`에 클릭 리스너를 걸어 `.page.on` 클래스를 토글하는 단순한 방식입니다(라우터 없음). → `dashboards/features/internal_dashboard_01_tabs_and_chart_helpers.js`
+탭 전환은 `document.querySelectorAll('.tab')`에 리스너를 걸어 `.page.on` 클래스를 토글하는 단순한 방식입니다(라우터 없음).
+처음에는 `<div>` 에 **클릭 리스너만** 걸려 있어 키보드로는 탭을 바꿀 수 없었고 `aria-*` 속성도 0개였습니다 — 지금은 `activateTab()` 이 `aria-selected` 와 로빙 `tabindex` 를 함께 갱신하고, `keydown` 에서 ←→↑↓·Home·End·Enter·Space 를 처리합니다. → `dashboards/features/internal_dashboard_01_tabs_and_chart_helpers.js`
 
 ### A-2. 데이터 스키마 — `const D = {...}`
 전체 대시보드가 단 하나의 최상위 객체 `D`를 참조합니다. 실제로 파싱해 확인한 최상위 키:
@@ -52,7 +54,7 @@
 | `death_area` | 지역별 사망수/비중/평균생존시간/주요사망원인 | plan |
 | `bchars` | **캐릭터 74종 전체**의 세부 스탯(pick/win/top3/kda/rank/surv) | plan/bal 공용 |
 | `cbal` | 밸런스 분류 결과(픽률/승률/`flag`=너프후보(OP)/숙련자형/신중검토/버프후보/정상) | bal |
-| `shap_cards` | 캐릭터별 SHAP 해석 카드(무엇이 이상한가/해석/처방) + `shapimg`(사전 렌더링된 SHAP 플롯 이미지 경로) | bal |
+| `shap_cards` | 캐릭터별 SHAP 해석 카드(무엇이 이상한가/해석/처방) + `shapimg`(사전 렌더링된 SHAP 플롯, data URI 인라인) | bal |
 | `cmeta` | 밸런스 분석 메타(매치수 등, `m1`~`m3` 카드) | bal |
 
 > `D.cbal[i].flag` 값이 곧 `03_issues_and_troubleshooting.md` #6에서 설명한 "이상치 ≠ 즉시 너프" 4분류(너프 후보(OP) / 숙련자형 / 신중 검토 / 버프 후보)의 실제 구현입니다.
@@ -84,7 +86,7 @@
 - **패치 필터**: 전체 / 22.1 / 23.0 (`getPatchData()`가 `RAW_DATA` 또는 `PATCH_DATA["22.1"|"23.0"]`을 선택)
 
 ### B-2. 데이터 스키마
-세 개의 최상위 상수를 사용합니다.
+네 개의 최상위 상수를 사용합니다.
 
 **`RAW_DATA` / `PATCH_DATA["22.1"|"23.0"]`** (동일 스키마, 패치별로 중복 저장):
 | 키 | 내용 |
