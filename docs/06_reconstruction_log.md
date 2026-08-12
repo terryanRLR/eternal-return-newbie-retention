@@ -152,6 +152,26 @@ jupyter notebook notebooks/team_final/02_balance_and_newbie_analysis_consolidate
 | 항목 | 상태 |
 |---|---|
 | `death_stats` 정의 | ❌ 복원 불가 — 추정 근거 부족 |
-| `dashboards/*.html` 의 데이터 주입 방식 | ❌ `fetch()` 도 인라인 JSON 도 없음. [`02_analysis_pipeline.md`](02_analysis_pipeline.md) [4]절에 이미 "ETL 스크립트 원본 못 찾음"으로 기록됨 |
+| 대시보드 집계 JSON 을 만든 ETL 스크립트 | ❌ 원본 못 찾음. [`02_analysis_pipeline.md`](02_analysis_pipeline.md) [4]절 · [`05_dashboard_architecture.md`](05_dashboard_architecture.md) §D 참고 (재현 절차는 적어 뒀으나 스크립트는 미작성) |
 | `profile_long` 재구성의 정확성 | 🔲 팀 확인 필요 |
 | 뉴비 컷오프 60레벨의 근거 | 🔲 [`03`](03_issues_and_troubleshooting.md) #1 에 기록된 기존 미해결 항목 |
+
+> ⚠️ **혼동 주의 — "데이터 주입 방식"은 비어 있는 항목이 아닙니다.**
+> 이 표에 한때 *"`fetch()` 도 인라인 JSON 도 없음"* 이라고 적혀 있었지만 **사실과 다릅니다.**
+> 두 대시보드 모두 데이터가 `<script>` 안의 JS 상수로 박혀 있고, 스키마까지
+> [`05_dashboard_architecture.md`](05_dashboard_architecture.md) §A-2·§B-2 에 정리돼 있습니다.
+>
+> | 대시보드 | 주입 방식 | 위치 |
+> |---|---|---|
+> | 사내 종합 | `const D = {…}` — 최상위 키 40개 | `eternal_return_dashboard_internal.html` **259행** (그 한 줄만 352,045바이트 ≈ 344KB) |
+> | 유저용 | `const PATCH_DATA` · `EXTRA_DATA` · `PATCH_AVG_RADAR` · `RAW_DATA` | `eternal_return_dashboard_user.html` 2361~2364행 (한 줄에 하나씩) |
+>
+> 변수명이 **한 글자(`D`)** 라서 `const [A-Z_]{3,}` 류의 패턴 검색에 걸리지 않습니다 —
+> 이 때문에 "주입 방식 불명"으로 오인된 적이 있으니, 검색으로 없다고 판단하기 전에
+> 최장 라인을 먼저 확인하세요.
+>
+> ```bash
+> awk '{print NR"\t"length($0)}' dashboards/eternal_return_dashboard_internal.html | sort -k2 -rn | head -3
+> ```
+>
+> **여전히 없는 것**은 그 JSON 을 만든 **집계 스크립트**입니다 (위 표 첫 줄).

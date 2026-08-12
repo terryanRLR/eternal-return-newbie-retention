@@ -12,7 +12,7 @@
 | 탭 구조 | 3-tab (exec / plan / bal) | 5-tab (실험체·지역·능력·파티·추천) + 설정 |
 | 차트 엔진 | **Chart.js 4.4.1** (CDN) | **직접 구현한 Canvas 2D 차트** (외부 차트 라이브러리 없음) |
 | 폰트 | Pretendard (CDN) | GmarketSans + Noto Sans KR (CDN) |
-| 데이터 로딩 | `fetch()` 없음. 모든 데이터가 `<script>` 내 JS 상수로 하드코딩 | 동일하게 하드코딩 (RAW_DATA/PATCH_DATA/EXTRA_DATA) |
+| 데이터 로딩 | `fetch()` 없음. 모든 데이터가 `<script>` 내 JS 상수로 하드코딩 (`const D`, 259행 한 줄) | 동일하게 하드코딩 (`RAW_DATA`/`PATCH_DATA`/`EXTRA_DATA`/`PATCH_AVG_RADAR`, 2361~2364행) |
 | 특수 기능 | 없음(정적 리포트형) | Web Speech API 기반 TTS 내레이션, 다국어(KOR/ENG/JPN), 다크모드 |
 | 파일 크기 | 약 388KB (대부분 데이터) | 약 409KB (대부분 데이터) |
 
@@ -102,11 +102,24 @@
 | `D` (Death) | 지역코드 → 사망률(dict) | 지역 탭 히트 도트 색상(`getExtraDeathRates`) |
 | `T` (Tendency) | 캐릭터ID → `[전투,방어,회복,지원,시야,사냥,성장,금전,제작,이동, 표본수, 승률, Top3율]` 13개 값 배열 | 추천 탭 성향 스코어링(`getExtraTendency`) |
 
+**`PATCH_AVG_RADAR = {"22.1", "23.0", "all"}`** — 각 키에 **10개 값 배열**이 들어 있고, 순서가
+`RADAR_KEYS`(2321행)와 1:1로 대응합니다:
+
+```js
+const RADAR_KEYS = ['maxHp','maxSp','attackPower','defense','attackSpeed',
+                    'moveSpeed','attackRange','coolDownReduction',
+                    'damageToPlayer','teamRecover'];
+```
+
+실험체 탭 레이더 차트가 **비교 기준선(전체 평균)** 으로 쓰는 값입니다 —
+`const patchAvg = PATCH_AVG_RADAR[App.patch] || PATCH_AVG_RADAR.all;` (2769행).
+즉 패치 필터를 바꾸면 캐릭터 다각형뿐 아니라 **기준선도 함께 갈립니다.**
+
 ### B-3. 탭별 핵심 기능 → 코드 위치
 | 탭/기능 | 설명 | 코드 파일 |
 |---|---|---|
 | 설정 › TTS 내레이션 | KOR/ENG/JPN 음성 선택, 속도/음량 조절, Web Speech API로 탭 설명을 읽어줌 | `dashboards/features/user_dashboard_01_tts_narration.js` |
-| 실험체 탭 › 레이더 차트 | 캐릭터 능력치를 8각 레이더로 시각화 (전체 평균과 겹쳐 비교), **Chart.js 없이 canvas에 직접 그림** | `dashboards/features/user_dashboard_02_charts_radar_pie.js` |
+| 실험체 탭 › 레이더 차트 | 캐릭터 능력치를 **10각** 레이더로 시각화 (`PATCH_AVG_RADAR` 기준선과 겹쳐 비교), **Chart.js 없이 canvas에 직접 그림** · `prefers-reduced-motion` 존중 | `dashboards/features/user_dashboard_02_charts_radar_pie.js` |
 | 능력 탭 › 파이 차트 | 승률/Top3율 기여도를 도넛형 파이로 표시, 커스텀 툴팁 | `dashboards/features/user_dashboard_02_charts_radar_pie.js` |
 | 지역 탭 › 지도 상호작용 | 지역별 승률 도트(초록→빨강), 클릭 시 주요 이동 경로를 실선/점선 화살표로 표시 | `dashboards/features/user_dashboard_03_map_interaction.js` |
 | 추천 탭 › 성향별 추천 | 10개 성향(⚔전투/🛡방어/💚회복/🎯지원/👁시야/🐾사냥/📈성장/💰금전/🔧제작/💨이동) 중 선택 시 TOP5 캐릭터 스코어링 | `dashboards/features/user_dashboard_04_recommendation_engine.js` |
