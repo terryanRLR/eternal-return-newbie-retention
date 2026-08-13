@@ -55,13 +55,13 @@
   --bg-dark:       #181818;   /* 메인 배경 */
   --bg-card:       #222222;   /* 카드 배경 */
   --bg-card2:      #2a2a2a;   /* 카드 내부 요소 */
-  --accent:        #D88187;   /* 메인 강조 - New York Pink */
+  --accent:        #DA878D;   /* 메인 강조 - New York Pink */
   --accent2:       #8F2F30;   /* 보조 강조 - Stiletto */
   --accent3:       #f0a8ae;   /* 밝은 핑크 하이라이트 */
   --text:          #f0e8e8;   /* 핑크빛 화이트 */
-  --text-muted:    #9a8585;   /* 핑크빛 그레이 */
+  --text-muted:    #AC9A9A;   /* 핑크빛 그레이 */
   --border:        #3a2828;   /* 딥 레드 틴트 다크 */
-  --danger:        #ff4444;
+  --danger:        #FF7171;
   --safe:          #88ddaa;
   --gold:          #f0c060;
   --silver:        #c0b8b8;
@@ -160,7 +160,7 @@ body::before {
   top: -100px;
   left: 8px;
   z-index: 100000;
-  background: var(--accent);
+  background: #181818;
   color: #fff;
   font-size: 13px;
   font-weight: 700;
@@ -1015,7 +1015,7 @@ body.neon-mode .lumia-btn:hover { border-color: #d4ff00; box-shadow: 0 4px 16px 
 .radar-title { font-size: 12px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
 .radar-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 #radarCanvas { display: block; margin: 0 auto; }
-.beg-badge { background: rgba(255,107,53,0.15); border: 1px solid var(--accent2); color: var(--accent2); padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: 1px; margin-left: 6px; }
+.beg-badge { background: rgba(255,107,53,0.15); border: 1px solid var(--accent); color: var(--text); padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: 1px; margin-left: 6px; }
 .place-layout { display: grid; grid-template-columns: 1fr 300px; gap: 20px; align-items: start; }
 .map-container { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; position: relative; }
 .map-img-wrap { width: 100%; height: 540px; position: relative; background: #060a10; }
@@ -1853,7 +1853,7 @@ body.neon-mode  .narration-dropdown { background: #0e1319; border-bottom-color: 
 }
 .ic-card-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
 .ic-card-title-accent  { color: var(--accent); }
-.ic-card-title-accent2 { color: var(--accent2); }
+.ic-card-title-accent2 { color: var(--accent); }   /* accent2 는 어두운 톤이라 2.21:1 이었다 */
 .ic-card-title-accent3 { color: var(--accent3); }
 .ic-card-body-text { font-size: 12px; color: var(--text-muted); line-height: 1.7; }
 .ability-card-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; letter-spacing: 0.5px; }
@@ -1977,7 +1977,7 @@ button,a{touch-action:manipulation;}
   <span style="margin-left:auto; font-size:11px; color:var(--text-muted)" id="filterInfo" aria-live="polite" aria-atomic="true">전체 데이터: 184,791 경기 / 74 캐릭터</span>
 </div>
 <!-- TABS -->
-<nav class="tabs-nav" aria-label="메인 탭 내비게이션 — 숫자키 1~5로 이동">
+<nav aria-label="메인 탭 내비게이션 — 숫자키 1~5로 이동"><div class="tabs-nav" role="tablist" aria-label="메인 탭">
   <button class="tab-btn active" data-tab="char" role="tab" aria-selected="true"  aria-controls="tab-char"    id="tabnav-char"    aria-label="실험체 탭 — 단축키 1">실험체</button>
   <button class="tab-btn"        data-tab="place" role="tab" aria-selected="false" aria-controls="tab-place"   id="tabnav-place"   aria-label="지역 탭 — 단축키 2">지역</button>
   <button class="tab-btn"        data-tab="ability" role="tab" aria-selected="false" aria-controls="tab-ability" id="tabnav-ability" aria-label="능력 탭 — 단축키 3">능력</button>
@@ -1989,7 +1989,7 @@ button,a{touch-action:manipulation;}
     <div class="badge" id="badgePatch" style="background:rgba(120,80,200,0.18);border-color:rgba(160,100,255,0.4);color:#c0a0ff;font-size:10px;letter-spacing:1.5px">전체 패치</div>
     <button class="settings-btn" id="settingsBtn" title="내레이션 설정">⚙ 설정</button>
   </div>
-</nav>
+</div></nav>
 <!-- 내레이션 설정 패널 (플로팅 드롭다운) -->
 <div id="narrationDropdown" class="narration-dropdown" style="display:none">
   <div class="narration-dropdown-inner">
@@ -2895,10 +2895,15 @@ function buildMapDots() {
       ? (maxWr>avgWr ? (p.v.winRate-avgWr)/(maxWr-avgWr) : 0)
       : (minWr<avgWr ? (avgWr-p.v.winRate)/(avgWr-minWr) : 0);
     const hue = isAbove ? 155 : 0;
-    const sat = 30 + strength*60;
-    const light = 70 - strength*45;
+    /* 흰 글자가 항상 4.5:1 을 넘는 범위로 좁혔다 — 최악 5.22:1.
+       예전에는 light<50 으로 흰/검정을 골랐는데, HSL 의 L 은 인지 밝기가 아니라
+       초록 핀에서 흰 글자가 2.39:1 까지 떨어졌다. 임계값만 고쳐도 초록·빨강 양쪽에
+       둘 다 못 넘기는 중간 구간(최선 4.44)이 남아서 색 범위를 바꿨다.
+       강약은 명도와 채도 두 축에 그대로 남는다. */
+    const sat = 30 + strength*40;
+    const light = 36 - strength*12;
     const bg = `hsl(${hue},${sat}%,${light}%)`;
-    const txt = light<50 ? '#fff' : '#0a0c10';
+    const txt = '#fff';
     const dot = document.createElement('div');
     dot.className = 'map-dot'; dot.id = 'dot-'+p.placeOfStart;
     dot.setAttribute('data-pos-x', pos[0]);

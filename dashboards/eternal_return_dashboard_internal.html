@@ -24,9 +24,12 @@
 //# sourceMappingURL=chart.umd.js.map
 </script>
 <style>
-:root{--bg:#ffffff;--soft:#f4f5f7;--line:#e6e8ec;--line2:#eef0f3;--ink:#1a1a1a;--txt:#23262c;--mut:#5e6672;--dim:#9aa0ab;
+:root{--bg:#ffffff;--soft:#f4f5f7;--line:#e6e8ec;--line2:#eef0f3;--ink:#1a1a1a;--txt:#23262c;--mut:#5e6672;--dim:#6E7480;
 --exec:#2f6ad9;--plan:#db4524;--bal:#6f34d6;
---blue:#3f6cb0;--blue2:#7d9fc8;--orange:#e8843c;--red:#d6604f;--green:#4a9d6b;--teal:#5aa0a0;}
+--blue:#3f6cb0;--blue2:#7d9fc8;--orange:#e8843c;--red:#d6604f;--green:#4a9d6b;--teal:#5aa0a0;
+/* 글자용 변형 — 위 색들은 차트 채우기 기준이라 흰 배경에서 작은 글자로 쓰면 대비가 모자란다.
+   색상·채도는 그대로 두고 명도만 낮춰 4.7:1 이상을 만든 값이다. 채우기에는 쓰지 않는다. */
+--red-t:#BD3E2C;--green-t:#387651;--gold-t:#8A6316;--plan-t:#BF3C1F;--exec-t:#2764D7;--bal-t:#6F34D6;}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--txt);font-family:"Pretendard","Malgun Gothic",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:46px}
 .wrap{max-width:1180px;margin:0 auto;padding:0 30px 40px}
@@ -41,7 +44,7 @@ body{background:var(--bg);color:var(--txt);font-family:"Pretendard","Malgun Goth
 .tab:hover{color:var(--ink)}
 .tab:focus-visible,.page:focus-visible{outline:2px solid var(--tc,var(--exec));outline-offset:3px;border-radius:4px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-.tab.on{color:var(--tc);font-weight:800;border-color:var(--tc)}.tab.on .pnum{color:var(--tc)}
+.tab.on{color:var(--tc);font-weight:800;border-color:var(--tc)}.tab.on .pnum{color:var(--tc-t)}
 .page{display:none}.page.on{display:block}
 .phead{margin-bottom:18px}
 .phead h2{font-size:26px;font-weight:800;letter-spacing:-.7px;color:var(--ink);line-height:1.25}
@@ -70,7 +73,7 @@ h3.sec{font-size:14.5px;font-weight:700;color:var(--ink);margin:26px 0 13px;padd
 /* account criteria */
 .crit .clbl{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:4px}
 .crit .cdesc{font-size:12px;color:var(--mut);margin-bottom:13px}
-.pill2{background:#eaf0fb;border:1px solid #d4e0f4;border-radius:8px;padding:10px 13px;font-size:13.5px;color:var(--exec);font-weight:700;text-align:center}
+.pill2{background:#eaf0fb;border:1px solid #d4e0f4;border-radius:8px;padding:10px 13px;font-size:13.5px;color:var(--exec-t);font-weight:700;text-align:center}
 .amp{text-align:center;font-size:10.5px;color:var(--dim);margin:6px 0;font-weight:700}
 .critnote{font-size:12px;color:var(--mut);margin-top:13px;border-top:1px solid var(--line2);padding-top:11px}
 /* cluster table */
@@ -78,8 +81,8 @@ h3.sec{font-size:14.5px;font-weight:700;color:var(--ink);margin:26px 0 13px;padd
 .crow{display:grid;grid-template-columns:104px 132px 1fr;gap:14px;align-items:center;padding:12px 12px;border-bottom:1px solid var(--line2)}
 .crow:last-child{border-bottom:none}.crow.imp{background:#fdf1ef}
 .cb{font-weight:800;font-size:13.5px;color:var(--ink)}
-.cflag{display:inline-block;font-size:10px;font-weight:700;color:#fff;background:var(--red);border-radius:5px;padding:1px 7px;margin-top:4px}
-.ctype{font-weight:700;font-size:13px}.crow.imp .ctype{color:var(--red)}
+.cflag{display:inline-block;font-size:10px;font-weight:700;color:#fff;background:var(--red-t);border-radius:5px;padding:1px 7px;margin-top:4px}
+.ctype{font-weight:700;font-size:13px}.crow.imp .ctype{color:var(--red-t)}
 .cnote{font-size:12.5px;color:var(--txt)}.cstat{font-size:11.5px;color:var(--mut);margin-top:3px}
 /* insight list */
 .ins{list-style:none}.ins li{position:relative;padding:8px 0 8px 16px;font-size:13px;border-bottom:1px solid var(--line2);color:var(--txt)}
@@ -88,7 +91,7 @@ h3.sec{font-size:14.5px;font-weight:700;color:var(--ink);margin:26px 0 13px;padd
 .env b{color:var(--ink);font-weight:700}.env .ed{font-size:13px;color:var(--mut);margin-top:8px;line-height:1.55}
 /* clusters legacy (unused) / notes */
 .note{background:var(--soft);border:1px solid var(--line);border-radius:11px;padding:15px 18px;font-size:14px;line-height:1.65;margin-top:18px}
-.note .nh{font-size:12.5px;font-weight:800;color:var(--role);margin-bottom:6px}.note b{font-weight:700}
+.note .nh{font-size:12.5px;font-weight:800;color:var(--role-t);margin-bottom:6px}.note b{font-weight:700}
 .rec{border:1px solid var(--line);border-left:4px solid var(--role);border-radius:9px;padding:15px 18px;font-size:14.5px;line-height:1.65;margin-top:18px}
 .rec .nh{font-size:12.5px;font-weight:800;color:var(--mut);margin-bottom:6px}.rec b{font-weight:800}
 /* watchlist / shap / quad / table (balance) */
@@ -124,7 +127,7 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover{background:var(--soft)}
 .av2 img{width:100%;height:100%;object-fit:cover;object-position:top center}.av2 span{font-size:11px;font-weight:800;color:var(--mut);line-height:24px}
 .wn{font-weight:800}.wn.g{color:var(--green)}.wn.w{color:var(--orange)}.wn.b{color:var(--red)}
 .role2{color:var(--mut);font-size:12px}
-.flow{display:flex;flex-direction:column}.fstep{background:var(--soft);border-radius:8px;padding:11px 14px;font-size:13px;font-weight:600;position:relative}.fstep:not(:last-child){margin-bottom:22px}.fstep:not(:last-child)::after{content:'↓';position:absolute;left:50%;bottom:-19px;transform:translateX(-50%);color:var(--dim);font-size:14px}.fstep.last{background:#fdf1ef;color:var(--plan);font-weight:800}
+.flow{display:flex;flex-direction:column}.fstep{background:var(--soft);border-radius:8px;padding:11px 14px;font-size:13px;font-weight:600;position:relative}.fstep:not(:last-child){margin-bottom:22px}.fstep:not(:last-child)::after{content:'↓';position:absolute;left:50%;bottom:-19px;transform:translateX(-50%);color:var(--dim);font-size:14px}.fstep.last{background:#fdf1ef;color:var(--plan-t);font-weight:800}
 .steps{list-style:none}.steps li{padding:11px 12px;background:var(--soft);border-radius:8px;margin-bottom:8px;font-size:13px}.steps li b{color:var(--bal);font-weight:800;margin-right:8px}
 #mvTab th,#mvTab td{padding:8px 9px}
 #mvTab .dirn{color:var(--bal);font-weight:700}#mvTab .dirb{color:var(--exec);font-weight:700}#mvTab .nbo{color:var(--bal);font-weight:800}
@@ -148,14 +151,14 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover{background:var(--soft)}
   <div class="meta">분석 매치 <b id="m1"></b> · 총 유저 <b id="m2"></b><br>밸런스 표본 <b id="m3"></b> · 초보 accountLevel ≤ 30</div>
  </div>
  <div class="tabs" role="tablist" aria-label="관점별 대시보드">
-  <div class="tab on" data-p="exec" data-team="임원진" style="--tc:var(--exec)" role="tab" id="tab-exec" aria-controls="exec" aria-selected="true" tabindex="0"><span class="pnum">PART 1</span>임원진</div>
-  <div class="tab" data-p="plan" data-team="기획자" style="--tc:var(--plan)" role="tab" id="tab-plan" aria-controls="plan" aria-selected="false" tabindex="-1"><span class="pnum">PART 2</span>기획자</div>
-  <div class="tab" data-p="bal" data-team="밸런스팀" style="--tc:var(--bal)" role="tab" id="tab-bal" aria-controls="bal" aria-selected="false" tabindex="-1"><span class="pnum">PART 3</span>밸런스팀</div>
+  <div class="tab on" data-p="exec" data-team="임원진" style="--tc:var(--exec);--tc-t:var(--exec-t)" role="tab" id="tab-exec" aria-controls="exec" aria-selected="true" tabindex="0"><span class="pnum">PART 1</span>임원진</div>
+  <div class="tab" data-p="plan" data-team="기획자" style="--tc:var(--plan);--tc-t:var(--plan-t)" role="tab" id="tab-plan" aria-controls="plan" aria-selected="false" tabindex="-1"><span class="pnum">PART 2</span>기획자</div>
+  <div class="tab" data-p="bal" data-team="밸런스팀" style="--tc:var(--bal);--tc-t:var(--bal-t)" role="tab" id="tab-bal" aria-controls="bal" aria-selected="false" tabindex="-1"><span class="pnum">PART 3</span>밸런스팀</div>
  </div>
 </div>
 
 <!-- EXEC -->
-<section class="page on" id="exec" style="--role:var(--exec)" role="tabpanel" aria-labelledby="tab-exec" tabindex="0">
+<section class="page on" id="exec" style="--role:var(--exec);--role-t:var(--exec-t)" role="tabpanel" aria-labelledby="tab-exec" tabindex="0">
  <div class="phead"><h2>유입은 충분, 반복이 일어나지 않는다</h2><div class="key"><b>핵심</b>9만 명 유입 · 1인 평균 2.21회 — 반복 플레이 전환이 매출의 병목이다</div></div>
  <div class="kgrid">
   <div class="kt"><div class="kl">총 유저 수</div><div class="kv" id="e_users"></div></div>
@@ -181,7 +184,7 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover{background:var(--soft)}
 </section>
 
 <!-- PLAN (deck flow) -->
-<section class="page" id="plan" style="--role:var(--plan)" role="tabpanel" aria-labelledby="tab-plan" tabindex="0">
+<section class="page" id="plan" style="--role:var(--plan);--role-t:var(--plan-t)" role="tabpanel" aria-labelledby="tab-plan" tabindex="0">
  <div class="phead"><h2>뉴비는 첫 10분에 떠난다 — 정의부터 원인까지</h2><div class="key"><b>핵심</b>계정+행동으로 뉴비를 정의하고, 첫 10분·제작·환경에서 이탈 원인을 진단한다</div></div>
 
  <h3 class="sec">뉴비 정의 — 계정 기준 + 행동 군집</h3>
@@ -246,7 +249,7 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover{background:var(--soft)}
 </section>
 
 <!-- BAL -->
-<section class="page" id="bal" style="--role:var(--bal)" role="tabpanel" aria-labelledby="tab-bal" tabindex="0">
+<section class="page" id="bal" style="--role:var(--bal);--role-t:var(--bal-t)" role="tabpanel" aria-labelledby="tab-bal" tabindex="0">
  <div class="phead"><h2>전체 밸런스 ≠ 초보 체감 밸런스</h2><div class="key"><b>핵심</b>초보에게 필요한 건 강한 캐릭터가 아니라 '정착 가능한' 캐릭터다</div></div>
  <div class="kgrid">
   <div class="kt"><div class="kl">분석 기록 (패치 후)</div><div class="kv" id="b_chars"></div></div>
@@ -343,7 +346,7 @@ new Chart(cTop,{type:'bar',data:{labels:D.top10.map(t=>t[0]),datasets:[{data:D.t
 // PLAN
 document.getElementById('clusTab').innerHTML=D.clusterTable.map(c=>`<div class="crow ${c.improve?'imp':''}">
  <div><div class="cb">Cluster ${c.id}</div>${c.improve?'<span class="cflag">개선 필요</span>':''}</div>
- <div class="ctype" style="${c.improve?'':'color:#'+c.color}">${c.type}</div>
+ <div class="ctype" style="${c.improve?'':'color:'+(CTT[c.color]||'#'+c.color)}">${c.type}</div>
  <div><div class="cnote">${c.note}</div><div class="cstat">표본 ${nf(c.n)} · 조기이탈 ${c.early}% · 승률 ${c.win}% · 평균순위 ${c.rank}</div></div>
 </div>`).join('');
 document.getElementById('nk_n').innerHTML=nf(D.newbie_kpi.n)+'<span class="u">명</span>';
@@ -371,7 +374,11 @@ document.getElementById('b_chars').innerHTML=nf(W.summary.chars);
 document.getElementById('b_win').innerHTML=W.summary.avgwin+'<span class="u">%</span>';
 document.getElementById('b_nerf').innerHTML=W.summary.nerf;
 document.getElementById('b_buff').innerHTML=W.summary.buff;
-const TH=D.cbalth, FC={'너프 후보(OP)':C.red,'숙련자형':'#e0a93a','신중 검토':C.green,'버프 후보':C.blue,'정상':'#c9ced6'};
+/* 클러스터 색도 차트 기준이라 글자로 쓰면 모자란다 — 데이터는 두고 표시할 때만 바꾼다. */
+const CTT={'e0484d':'#CE2329','3b82f6':'#0B60EC','dc8a08':'#965E05','1f9d61':'#18794B'};
+const TH=D.cbalth, FC={'너프 후보(OP)':C.red,'숙련자형':'#e0a93a','신중 검토':C.green,'버프 후보':C.blue,'정상':'#c9ced6'},
+/* 같은 색을 사분면 점(채우기)과 그룹 태그(글자) 양쪽에 쓰고 있었다. 글자 쪽만 어둡게. */
+FCT={'너프 후보(OP)':'#BD3E2C','숙련자형':'#8A6316','신중 검토':'#387651','버프 후보':'#3E6AAD','정상':'#5e6672'};
 const band={id:'band',beforeDatasetsDraw(ch){const{ctx,chartArea:a,scales:{y,x}}=ch;const yU=y.getPixelForValue(TH.winUp),yL=y.getPixelForValue(TH.winLo);ctx.save();ctx.fillStyle='rgba(74,157,107,.07)';ctx.fillRect(a.left,yU,a.right-a.left,yL-yU);
  ctx.setLineDash([5,4]);ctx.lineWidth=1.2;ctx.strokeStyle='rgba(214,96,79,.55)';ctx.beginPath();ctx.moveTo(a.left,yU);ctx.lineTo(a.right,yU);ctx.stroke();ctx.strokeStyle='rgba(63,108,176,.55)';ctx.beginPath();ctx.moveTo(a.left,yL);ctx.lineTo(a.right,yL);ctx.stroke();
  const px=x.getPixelForValue(TH.pickMean);ctx.strokeStyle='#c8cdd6';ctx.beginPath();ctx.moveTo(px,a.top);ctx.lineTo(px,a.bottom);ctx.stroke();ctx.setLineDash([]);
@@ -382,7 +389,7 @@ new Chart(cQuad,{type:'scatter',data:{datasets:[{data:D.cbal.map(c=>({x:c.pick,y
 const order=['너프 후보(OP)','숙련자형','신중 검토','버프 후보'];
 const cnt={};D.cbal.forEach(c=>cnt[c.flag]=(cnt[c.flag]||0)+1);
 document.getElementById('qleg').innerHTML=order.concat(['정상']).map(f=>`<span><i style="background:${FC[f]}"></i>${f} ${cnt[f]||0}</span>`).join('');
-document.getElementById('grpWrap').innerHTML=order.map(f=>{const items=D.cbal.filter(c=>c.flag===f).sort((a,b)=>b.win-a.win);return `<div class="grp"><span class="gtag" style="color:${FC[f]}">${f} · ${items.length}종</span><div class="chips">${items.map(c=>`<span class="chip" style="border-color:${FC[f]}55">${c.char} <small style="color:var(--mut);font-weight:600">${c.win}%</small></span>`).join('')}</div></div>`;}).join('');
+document.getElementById('grpWrap').innerHTML=order.map(f=>{const items=D.cbal.filter(c=>c.flag===f).sort((a,b)=>b.win-a.win);return `<div class="grp"><span class="gtag" style="color:${FCT[f]||FC[f]}">${f} · ${items.length}종</span><div class="chips">${items.map(c=>`<span class="chip" style="border-color:${FC[f]}55">${c.char} <small style="color:var(--mut);font-weight:600">${c.win}%</small></span>`).join('')}</div></div>`;}).join('');
 const bymap={};D.cbal.forEach(c=>bymap[c.char]=c);
 function chq(c){const en=c.en||'';return `<div class="chq"><div class="av3"><img src="${PORT(en)}" alt="" onerror="this.parentNode.innerHTML='<span>'+'${c.char[0]}'+'</span>'"></div><div class="nm2">${c.char}</div><div class="st2">승 ${c.win}%<br>픽 ${c.pick}%</div></div>`;}
 document.getElementById('nerfRow').innerHTML=D.cbal.filter(c=>c.flag==='너프 후보(OP)').map(chq).join('');
