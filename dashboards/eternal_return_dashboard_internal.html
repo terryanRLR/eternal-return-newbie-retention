@@ -52,6 +52,13 @@ h3.sec{font-size:14.5px;font-weight:700;color:var(--ink);margin:26px 0 13px;padd
 @media(max-width:760px){.kt{border-right:none;border-bottom:1px solid var(--line)}}
 .kt .kl{font-size:12px;color:var(--mut)}
 .kt .kv{font-size:30px;font-weight:800;margin-top:5px;letter-spacing:-1px;line-height:1;color:var(--role)}
+/* 핵심 지표 한 칸만 파트 색으로 남기고 나머지는 중립으로 낮춘다.
+   제목이 "반복이 일어나지 않는다"인데 KPI 넷이 같은 무게라, 어느 숫자가 그 근거인지
+   보이지 않았다. PART 2·3 은 이미 색으로 결론을 가리키고 있다(개선 필요 행 tint,
+   사분면 강함/약함 분류) — PART 1 만 그 장치가 없었다. */
+.kt.key{box-shadow:inset 3px 0 0 var(--role)}
+.kt.key .kl{color:var(--role);font-weight:700}
+.kt:not(.key) .kv{color:var(--ink)}
 .kt .kv .u{font-size:14px;color:var(--mut);font-weight:700;margin-left:2px}
 .grid{display:grid;gap:16px}.r2{grid-template-columns:1fr 1fr}.r13{grid-template-columns:1.5fr 1fr}.r31{grid-template-columns:1fr 1.5fr}.r3{grid-template-columns:1fr 1fr 1fr}
 @media(max-width:920px){.r2,.r13,.r31,.r3{grid-template-columns:1fr}}
@@ -152,7 +159,7 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover{background:var(--soft)}
  <div class="phead"><h2>유입은 충분, 반복이 일어나지 않는다</h2><div class="key"><b>핵심</b>9만 명 유입 · 1인 평균 2.21회 — 반복 플레이 전환이 매출의 병목이다</div></div>
  <div class="kgrid">
   <div class="kt"><div class="kl">총 유저 수</div><div class="kv" id="e_users"></div></div>
-  <div class="kt"><div class="kl">1인 평균 플레이</div><div class="kv" id="e_plays"></div></div>
+  <div class="kt key"><div class="kl">1인 평균 플레이</div><div class="kv" id="e_plays"></div></div>
   <div class="kt"><div class="kl">평균 플레이 시간</div><div class="kv" id="e_time"></div></div>
   <div class="kt"><div class="kl">일반(스쿼드) 비중</div><div class="kv" id="e_mode"></div></div>
  </div>
@@ -324,8 +331,12 @@ document.getElementById('e_users').innerHTML=nf(D.proj.users);
 document.getElementById('e_plays').innerHTML=D.proj.avgPlays+'<span class="u">회</span>';
 document.getElementById('e_time').innerHTML=D.proj.avgTime+'<span class="u">분</span>';
 document.getElementById('e_mode').innerHTML=D.mode[0][1]+'<span class="u">%</span>';
-new Chart(cPlay,{type:'bar',data:{labels:D.playcount.map(p=>p[0]),datasets:[{data:D.playcount.map(p=>p[1]),backgroundColor:C.blue,borderRadius:3,barPercentage:.62}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const r=D.playcount[c.dataIndex];return r[1]+'% · '+nf(r[2])+'명';}}}},scales:{y:{...gx,ticks:{callback:v=>v+'%'}},x:ny}}});
-new Chart(cRet,{type:'line',data:{labels:D.retention.map(r=>r[0]),datasets:[{data:D.retention.map(r=>r[1]),borderColor:C.blue,backgroundColor:'rgba(63,108,176,.08)',fill:true,tension:.25,pointRadius:2.5,pointBackgroundColor:C.blue,borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+'%'}}},scales:{y:{...gx,ticks:{callback:v=>v+'%'}},x:{...ny,title:{display:true,text:'레벨 구간'}}}}});
+/* 부제가 "1회·2~3회에 전체의 80% 이상이 몰려 있다"라고 말하는데 막대가 전부 같은 색이라
+   그 80%가 그림에서 보이지 않았다. 이탈이 몰린 앞 두 구간만 진하게, 정착 구간은 흐리게. */
+new Chart(cPlay,{type:'bar',data:{labels:D.playcount.map(p=>p[0]),datasets:[{data:D.playcount.map(p=>p[1]),backgroundColor:D.playcount.map((p,i)=>i<2?C.blue:C.blue2),borderRadius:3,barPercentage:.62}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const r=D.playcount[c.dataIndex];return r[1]+'% · '+nf(r[2])+'명';}}}},scales:{y:{...gx,ticks:{callback:v=>v+'%'}},x:ny}}});
+/* 부제가 말하는 격차(30.8% → 62.4%)가 보이도록 양 끝점만 키우고 파트 색으로 찍는다.
+   가운데 점들은 흐리게 — 선의 방향이 주인공이고 끝점 두 개가 그 결론이다. */
+new Chart(cRet,{type:'line',data:{labels:D.retention.map(r=>r[0]),datasets:[{data:D.retention.map(r=>r[1]),borderColor:C.blue,backgroundColor:'rgba(63,108,176,.08)',fill:true,tension:.25,pointRadius:D.retention.map((r,i,a)=>(i===0||i===a.length-1)?5:2.5),pointBackgroundColor:D.retention.map((r,i,a)=>(i===0||i===a.length-1)?C.exec:C.blue2),pointBorderColor:D.retention.map((r,i,a)=>(i===0||i===a.length-1)?C.exec:C.blue2),borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+'%'}}},scales:{y:{...gx,ticks:{callback:v=>v+'%'}},x:{...ny,title:{display:true,text:'레벨 구간'}}}}});
 new Chart(cPre,{type:'bar',data:{labels:D.premade.map(p=>p[0]),datasets:[{data:D.premade.map(p=>p[1]),backgroundColor:[C.orange,C.blue,C.teal],borderRadius:3,barPercentage:.6}]},options:{indexAxis:'y',layout:{padding:{right:30}},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x+'%'}}},scales:{x:{...gx,suggestedMax:72,ticks:{callback:v=>v+'%'}},y:ny}},plugins:[valLabel(v=>v+'%')]});
 new Chart(cPreTime,{type:'bar',data:{labels:D.premade_time.map(p=>p[0]),datasets:[{data:D.premade_time.map(p=>p[1]),backgroundColor:[C.orange,C.blue,C.teal],borderRadius:3,barPercentage:.5}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+'분'}}},scales:{y:{...gx,suggestedMin:13.5,ticks:{callback:v=>v+'분'}},x:ny}}});
 new Chart(cTop,{type:'bar',data:{labels:D.top10.map(t=>t[0]),datasets:[{data:D.top10.map(t=>t[1]),backgroundColor:C.blue,borderRadius:3,barPercentage:.74}]},options:{indexAxis:'y',layout:{padding:{right:52}},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>nf(c.parsed.x)+'명'}}},scales:{x:{...gx,suggestedMax:Math.max(...D.top10.map(t=>t[1]))*1.13,ticks:{callback:v=>(v/1000)+'K'}},y:ny}},plugins:[valLabel(v=>nf(v))]});

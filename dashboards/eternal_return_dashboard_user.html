@@ -2508,6 +2508,15 @@ function renderCharTab() {
   renderPodium([sorted[1], sorted[0], sorted[2]]);
   renderSixGrid('sixGrid1', sorted.slice(3,9));
   renderSixGrid('sixGrid2', sorted.slice(9,15));
+  /* 첫 진입에 우측 패널이 "캐릭터를 클릭하면 상세 정보가 표시됩니다" 로 비어 있지 않게
+     No.1 을 미리 펼친다. 화면 절반이 안내문 하나로 남던 자리다.
+     레이아웃의 한계가 아니라 초기 선택값이 없던 것뿐이다 — 지역 탭은 이미 같은 방식이다.
+     필터(전체/초보자)나 정렬(승률/상위3위율)을 바꾸면 목록이 통째로 달라지므로,
+     지금 고른 캐릭터가 새 목록에 없으면 그때도 No.1 로 되돌린다.
+     showCharDetail 은 소리를 내지 않는다(음성은 onCharClick 에서만) — 자동 재생 걱정 없음. */
+  if(sorted[0] && (App.selChar==null || !sorted.some(c=>c && c.id===App.selChar))){
+    showCharDetail(sorted[0].id);
+  }
 }
 function renderPodium(top3) {
   const pod = document.getElementById('podiumArea');
