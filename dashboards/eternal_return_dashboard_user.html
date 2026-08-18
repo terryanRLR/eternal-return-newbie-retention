@@ -76,14 +76,14 @@ body.light-mode {
   --bg-card2:   #fdf5f5;
   --accent:     #8F2F30;
   --accent2:    #6a1f20;
-  --accent3:    #c06068;
+  --accent3:    #b74852;
   --er-pink:    #8F2F30;
   --text:       #201818;
-  --text-muted: #7a5555;
+  --text-muted: #6f4c4c;
   --border:     #e8d0d0;
   --danger:     #cc2222;
   --safe:       #226644;
-  --gold:       #a07010;
+  --gold:       #8b610e;
   --silver:     #707070;
   --bronze:     #7a4820;
 }
@@ -97,9 +97,9 @@ body.neon-mode {
   --er-pink:    #d4ff00;
   --er-stiletto:#ff4d1a;
   --text:       #dde4ee;
-  --text-muted: #6b7a95;
+  --text-muted: #74829b;
   --border:     #1a2235;
-  --danger:     #ff3333;
+  --danger:     #ff4747;
   --safe:       #00cc88;
   --gold:       #ffd700;
   --silver:     #b8c4d0;
@@ -656,11 +656,11 @@ body.neon-mode  .filter-btn.active { background: rgba(212,255,0,0.12); border-co
   border-radius: 2px;
 }
 body.light-mode .tabs-nav { background: #fff; border-bottom-color: #d8daea; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-body.light-mode .tab-btn { color: #7a7a9a; }
+body.light-mode .tab-btn { color: #737395; }
 body.light-mode .tab-btn:hover:not(.active) { background: rgba(143,47,48,0.04); border-bottom-color: rgba(143,47,48,0.3); color: #4a4a6a; }
 body.light-mode .tab-btn.active { color: #8F2F30; border-bottom-color: #8F2F30; background: rgba(143,47,48,0.05); }
 body.neon-mode .tabs-nav { background: #0e1319; border-bottom-color: rgba(212,255,0,0.12); box-shadow: 0 2px 16px rgba(0,0,0,0.5); }
-body.neon-mode .tab-btn { color: #6b7a95; }
+body.neon-mode .tab-btn { color: #74829b; }
 body.neon-mode .tab-btn:hover:not(.active) { color: #dde4ee; background: rgba(212,255,0,0.04); border-bottom-color: rgba(212,255,0,0.25); }
 body.neon-mode .tab-btn.active { color: #d4ff00; border-bottom-color: #d4ff00; background: rgba(212,255,0,0.06); text-shadow: 0 0 10px rgba(212,255,0,0.4); }
 body.neon-mode .tab-btn.active::after { background: #d4ff00; }
@@ -1388,7 +1388,7 @@ body.neon-mode .lumia-btn:hover { border-color: #d4ff00; box-shadow: 0 4px 16px 
 .rec-place-stat-val { font-size: 13px; font-weight: 900; }
 .rec-place-stat-val.wr   { color: var(--accent); }
 .rec-place-stat-val.top3 { color: var(--accent3); }
-.rec-place-stat-val.diff { color: #60d080; }
+.rec-place-stat-val.diff { color: var(--diff-fg,#60d080); }
 .rec-place-goto { font-size: 10px; color: var(--text-muted); margin-left: auto; opacity: 0.6; transition: opacity 0.15s, color 0.15s; white-space: nowrap; }
 .rec-place-item:hover .rec-place-goto { opacity: 1; color: var(--er-pink); }
 .stat-bar-mini {
@@ -1430,7 +1430,7 @@ body.neon-mode .tend-btn.active { background:rgba(212,255,0,0.12); border-color:
 body.neon-mode .tend-tag { background:rgba(0,229,176,0.12); color:#00e5b0; }
 body.neon-mode .rec-route-good { color:#00cc88; }
 body.neon-mode .rec-route-bad { color:#ff3333; }
-body.neon-mode .danger-high { background:rgba(255,51,51,0.15); color:#ff3333; }
+body.neon-mode .danger-high { background:rgba(255,51,51,0.15); color:#ff5252; }
 body.neon-mode .danger-mid  { background:rgba(255,215,0,0.12); color:#ffd700; }
 body.neon-mode .danger-low  { background:rgba(0,204,136,0.12); color:#00cc88; }
 .rec-route-wrap { margin-top:4px; padding:4px 8px; background:var(--bg-card2); border-radius:6px; font-size:10px; line-height:1.5; }
@@ -1543,18 +1543,18 @@ body.sakura-mode {
   --bg-dark:    #fdf0f5;
   --bg-card:    #fff5f8;
   --bg-card2:   #fff0f4;
-  --accent:     #d45c8a;
+  --accent:     #ba3165;
   --accent2:    #a03060;
-  --accent3:    #e87aaa;
-  --er-pink:    #d45c8a;
+  --accent3:    #cd246e;
+  --er-pink:    #ba3165;
   --er-stiletto:#a03060;
   --text:       #2d1020;
   --text-muted: #9a5070;
   --border:     #f0c0d8;
-  --danger:     #cc2244;
-  --safe:       #2d8050;
-  --gold:       #c08020;
-  --silver:     #808080;
+  --danger:     #bf2040;
+  --safe:       #2b7c4d;
+  --gold:       #916118;
+  --silver:     #717171;
   --bronze:     #a05030;
 }
 body.sakura-mode canvas { filter: none; }
@@ -1583,7 +1583,7 @@ body.deepsea-mode {
   --er-pink:    #00b4d8;
   --er-stiletto:#0077a8;
   --text:       #cce8f4;
-  --text-muted: #4a7a9a;
+  --text-muted: #588caf;
   --border:     #0d2a45;
   --danger:     #ff4d6d;
   --safe:       #00c896;
@@ -1616,7 +1616,7 @@ body.forest-mode {
   --er-pink:    #4caf6a;
   --er-stiletto:#2e7d48;
   --text:       #d4f0dc;
-  --text-muted: #5a8a68;
+  --text-muted: #5d8f6c;
   --border:     #1a3a22;
   --danger:     #ff5252;
   --safe:       #69f0ae;
@@ -1649,7 +1649,7 @@ body.midnight-mode {
   --er-pink:    #b388ff;
   --er-stiletto:#7c4dff;
   --text:       #e8e0ff;
-  --text-muted: #7060a0;
+  --text-muted: #8477ad;
   --border:     #251840;
   --danger:     #ff5370;
   --safe:       #69f0ae;
@@ -1682,9 +1682,9 @@ body.inferno-mode {
   --er-pink:    #ff6d00;
   --er-stiletto:#c43b00;
   --text:       #fff0e0;
-  --text-muted: #9a6040;
+  --text-muted: #b16f4a;
   --border:     #3a1400;
-  --danger:     #ff1744;
+  --danger:     #ff3e64;
   --safe:       #76ff03;
   --gold:       #ffd740;
   --silver:     #d0b090;
@@ -1715,9 +1715,9 @@ body.mono-mode {
   --er-pink:    #c0c0c0;
   --er-stiletto:#808080;
   --text:       #f0f0f0;
-  --text-muted: #707070;
+  --text-muted: #8b8b8b;
   --border:     #333333;
-  --danger:     #ff4444;
+  --danger:     #ff5959;
   --safe:       #aaaaaa;
   --gold:       #e0e0e0;
   --silver:     #c0c0c0;
@@ -1887,6 +1887,30 @@ button,a{touch-action:manipulation;}
 .kb-key kbd{background:var(--bg-card2);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-size:11px;color:var(--accent3);line-height:1.6}
 .kb-desc{color:var(--text-muted);line-height:1.5}
 #kbHelpClose{margin-top:16px;padding:7px 20px;border-radius:6px;background:rgba(216,129,135,.15);border:1px solid rgba(216,129,135,.4);color:var(--accent3);font-weight:700;font-size:12px;cursor:pointer}
+/* ── 명도비 AA 보정 (테마 9종 전수 측정, 2026-08-18) ───────────────────────
+   라이트 계열 테마는 배경이 밝아, 다크 테마용 채우기 색을 글자에 그대로 쓰면
+   4.5:1 을 못 넘긴다. 채우기(도트·막대·파이 조각)는 원색을 유지하고
+   '글자'만 여기서 어둡게 덮는다. 되돌리려면 이 블록만 지우면 된다. */
+body.light-mode  { --badge-patch-fg: #752fff; --diff-fg: #257c3e; }
+body.sakura-mode { --badge-patch-fg: #6f26ff; --diff-fg: #267f3f; }
+body.light-mode .legend-val,
+body.sakura-mode .legend-val { color: var(--text) !important; }
+/* 어두운 배경 위에 남아 있는 라이트 테마 요소들 (지도 오버레이·활성 버튼) */
+body.light-mode .map-click-hint { color: #787878; }
+body.light-mode .showcase-toggle-btn.active { color: #ffffff; }
+body.light-mode .filter-label { color: rgba(200,210,230,0.92); }
+body.sakura-mode .podium-rank { color: var(--text-muted); }
+
+/* 2차 보정 — 변수를 쓰지 않는 규칙과 라이트 테마의 어두운 잔재 (2026-08-18) */
+/* 위험도 배지: 옅은 채움 위 같은 계열 글자라 3등급 모두 여유가 없다 */
+body.light-mode  .danger-high { color: #b81c1c; }
+body.sakura-mode .danger-low  { color: #23683f; }
+body.mono-mode   .danger-high { color: #ff7070; }
+/* 벚꽃: 강조색을 어둡게 내린 결과 활성 버튼의 검은 글자가 3.46 이 됐다 */
+body.sakura-mode .showcase-toggle-btn.active { color: #ffffff; }
+/* 라이트: 필터 바만 어두운 배경을 유지한다 — 그 안 글자는 밝은 쪽이어야 한다 */
+body.light-mode #filterInfo { color: rgba(214,222,236,0.95) !important; }
+
 </style>
 </head>
 <body>
@@ -1989,7 +2013,7 @@ button,a{touch-action:manipulation;}
   <div class="tabs-badges" role="status" aria-label="데이터 통계">
     <div class="badge badge-gold" id="badgeMatches" aria-label="총 매치 수">184,791 매치</div>
     <div class="badge badge-teal" id="badgeChars" aria-label="총 캐릭터 수">74 캐릭터</div>
-    <div class="badge" id="badgePatch" style="background:rgba(120,80,200,0.18);border-color:rgba(160,100,255,0.4);color:#c0a0ff;font-size:10px;letter-spacing:1.5px">전체 패치</div>
+    <div class="badge" id="badgePatch" style="background:rgba(120,80,200,0.18);border-color:rgba(160,100,255,0.4);color:var(--badge-patch-fg,#c0a0ff);font-size:10px;letter-spacing:1.5px">전체 패치</div>
     <button class="settings-btn" id="settingsBtn" title="내레이션 설정">⚙ 설정</button>
   </div>
 </div></nav>
@@ -3395,7 +3419,7 @@ function drawPieChart(canvasId, data, legendId, rawCorrs, statKeys) {
       +'<div class="legend-dot" style="background:'+colors[i]+'"></div>'
       +'<span style="color:var(--text);flex:1;font-size:14px;font-weight:700">'+d.label+'</span>'
       +'<div class="legend-bar-wrap"><div class="legend-bar-fill" style="width:'+barW+'%;background:'+colors[i]+'"></div></div>'
-      +'<span style="color:'+colors[i]+';font-weight:700;font-size:14px;width:48px;text-align:right">'+(d.val*100).toFixed(1)+'%</span>'
+      +'<span class="legend-val" style="color:'+colors[i]+';font-weight:700;font-size:14px;width:48px;text-align:right">'+(d.val*100).toFixed(1)+'%</span>'
       +'</div>';
   }).join('');
   leg.querySelectorAll('.legend-item').forEach(el => {
